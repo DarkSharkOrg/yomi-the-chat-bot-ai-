@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YOMI Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .chat-container {
+            width: 90%;
+            max-width: 500px;
+            background-color: #1e1e1e;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+        }
+        .chat-box {
+            height: 300px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #252525;
+            border-radius: 8px;
+        }
+        .chat-box p {
+            margin: 5px 0;
+        }
+        .user {
+            text-align: right;
+            color: #00bfff;
+        }
+        .bot {
+            text-align: left;
+            color: #32cd32;
+        }
+        .input-container {
+            display: flex;
+            gap: 10px;
+        }
+        .input-container input {
+            flex: 1;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #444;
+            background-color: #333;
+            color: #fff;
+        }
+        .input-container button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #00bfff;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .input-container button:hover {
+            background-color: #009acd;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-box" id="chatBox">
+            <p class="bot">Hi! I'm YOMI. How can I assist you today?</p>
+        </div>
+        <div class="input-container">
+            <input type="text" id="userInput" placeholder="Type your message here...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        const chatBox = document.getElementById('chatBox');
+
+        function sendMessage() {
+            const userInput = document.getElementById('userInput');
+            const userMessage = userInput.value.trim();
+
+            if (userMessage) {
+                appendMessage(userMessage, 'user');
+                getBotResponse(userMessage);
+                userInput.value = '';
+            }
+        }
+
+        function appendMessage(message, sender) {
+            const messageElement = document.createElement('p');
+            messageElement.className = sender;
+            messageElement.textContent = message;
+            chatBox.appendChild(messageElement);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function getBotResponse(message) {
+            let response;
+
+            // Basic responses
+            if (message.toLowerCase().includes('hello')) {
+                response = "Hello there! How can I help you?";
+            } else if (message.toLowerCase().includes('how are you')) {
+                response = "I'm just a bot, but I'm functioning as expected!";
+            } else if (message.toLowerCase().includes('what is your name')) {
+                response = "I'm YOMI, your friendly chatbot!";
+            } else {
+                response = "I'm not sure how to respond to that. Can you try asking something else?";
+            }
+
+            setTimeout(() => appendMessage(response, 'bot'), 500);
+        }
+    </script>
+</body>
+</html>
